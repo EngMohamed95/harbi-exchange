@@ -14,10 +14,8 @@ export const Ticker: React.FC<TickerProps> = ({ lang }) => {
   const isArabic = lang === 'ar';
   const { currencies } = useRates();
 
-  // Highlight high-interest currencies for the ticker
-  const highlightedCurrencies = currencies.filter((c) =>
-    ['USD', 'EUR', 'GBP', 'AED', 'EGP', 'IDR', 'TRY', 'PKR', 'INR', 'KWD', 'MYR'].includes(c.code)
-  );
+  // Constant scroll speed regardless of how many currencies the feed has.
+  const durationSeconds = Math.max(30, currencies.length * 4);
 
   return (
     <div className="w-full bg-slate-900/90 border-y border-slate-800 text-xs overflow-hidden py-2.5 relative select-none">
@@ -34,11 +32,16 @@ export const Ticker: React.FC<TickerProps> = ({ lang }) => {
 
         {/* Marquee Ticker Track */}
         <div className="relative overflow-hidden w-full flex">
-          <div className="animate-marquee flex items-center gap-6 whitespace-nowrap py-0.5">
-            {[...highlightedCurrencies, ...highlightedCurrencies].map((c, idx) => (
+          {/* Two identical copies, each item spaced with a trailing margin (not `gap`),
+              so shifting by exactly 50% lands on the start of the second copy. */}
+          <div
+            className="animate-marquee flex items-center whitespace-nowrap py-0.5"
+            style={{ animationDuration: `${durationSeconds}s` }}
+          >
+            {[...currencies, ...currencies].map((c, idx) => (
               <div
                 key={`${c.code}-${idx}`}
-                className="flex items-center gap-3 px-3 py-1 bg-slate-950/60 rounded-md border border-slate-800/80 hover:border-slate-700 transition-colors"
+                className="me-6 flex items-center gap-3 px-3 py-1 bg-slate-950/60 rounded-md border border-slate-800/80 hover:border-slate-700 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm">{c.flag}</span>

@@ -21,15 +21,22 @@
   100% { transform: translateX(-50%); }
 }
 
-@keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+/* In RTL the track is anchored to the right and its second copy overflows to the left,
+   so it has to slide right to bring that copy into view. */
+@keyframes marquee-rtl {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(50%); }
 }
 
 .animate-marquee {
   display: flex;
   width: max-content;
+  flex-shrink: 0;
   animation: marquee 35s linear infinite;
+}
+
+[dir='rtl'] .animate-marquee {
+  animation-name: marquee-rtl;
 }
 
 .animate-marquee:hover {
