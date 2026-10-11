@@ -38,14 +38,3 @@ export interface FAQItem {
   answerAr: string;
   answerEn: string;
 }
-
-export interface ExchangeBooking {
-  fullName: string;
-  phone: string;
-  email: string;
-  fromCurrency: string;
-  toCurrency: string;
-  amount: number;
-  terminalVisitDate: string;
-  notes?: string;
-}

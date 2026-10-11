@@ -1,19 +1,17 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useId, useEffect } from 'react';
 import { useRates } from '../hooks/useRates';
 import { formatRate } from '../data/rates';
 import { Language } from '../types';
 import { content } from '../translations';
-import { ArrowLeftRight, CheckCircle2, ShieldCheck, Clock, Calculator } from 'lucide-react';
+import { ArrowLeftRight, CheckCircle2, ShieldCheck, Calculator } from 'lucide-react';
 
 interface CurrencyConverterProps {
   lang: Language;
-  onBookRate: (from: string, to: string, amount: number) => void;
   selectedCurrencyCode?: string;
 }
 
 export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
   lang,
-  onBookRate,
   selectedCurrencyCode = 'USD',
 }) => {
   const t = content[lang];
@@ -25,6 +23,11 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
   const [mode, setMode] = useState<'buy' | 'sell'>('sell');
   const [foreignCode, setForeignCode] = useState<string>(selectedCurrencyCode);
   const [amount, setAmount] = useState<number>(1000);
+
+  // Follow currency picks made outside the converter (e.g. the rates table).
+  useEffect(() => {
+    setForeignCode(selectedCurrencyCode);
+  }, [selectedCurrencyCode]);
 
   const { currencies, error } = useRates();
 
@@ -261,7 +264,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
 
       </div>
 
-      {/* Trust & Instant Action Strip */}
+      {/* Trust Strip */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-950/90 border border-slate-800 text-xs">
         <div className="flex items-center gap-3 text-slate-300">
           <ShieldCheck className="w-5 h-5 text-[#a6ce39] shrink-0" />
@@ -277,18 +280,6 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            const from = mode === 'sell' ? selectedCurrency.code : 'SAR';
-            const to = mode === 'sell' ? 'SAR' : selectedCurrency.code;
-            onBookRate(from, to, amount);
-          }}
-          className="px-5 py-3 text-xs sm:text-sm font-bold text-slate-950 bg-gradient-to-r from-[#a6ce39] via-[#b6d843] to-[#a6ce39] hover:brightness-105 active:scale-[0.98] rounded-xl transition-all shadow-md flex items-center justify-center gap-2 whitespace-nowrap shrink-0"
-        >
-          <Clock className="w-4 h-4 text-slate-950" />
-          <span>{t.converter.lockRateBtn}</span>
-        </button>
       </div>
 
     </div>

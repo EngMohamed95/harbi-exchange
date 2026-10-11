@@ -11,19 +11,16 @@ import {
   ChevronDown,
   ArrowUpRight,
   PhoneCall,
-  Sparkles,
 } from 'lucide-react';
 
 interface HeroProps {
   lang: Language;
-  onOpenBooking: () => void;
-  onSelectCurrency: (currencyCode: string) => void;
+  selectedCurrencyCode: string;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   lang,
-  onOpenBooking,
-  onSelectCurrency,
+  selectedCurrencyCode,
 }) => {
   const t = content[lang];
   const isArabic = lang === 'ar';
@@ -94,15 +91,6 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Primary Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-3">
-              <button
-                type="button"
-                onClick={onOpenBooking}
-                className="px-6 py-3.5 text-sm font-bold text-slate-950 bg-gradient-to-r from-[#a6ce39] to-[#92ba2b] hover:brightness-105 active:scale-[0.98] rounded-xl transition-all shadow-lg brand-glow-lime flex items-center gap-2"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>{isArabic ? 'احجز استلام العملات بالمطار' : 'Book Airport Cash Pickup'}</span>
-              </button>
-
               <a
                 href={`tel:${t.tollFree}`}
                 className="px-5 py-3.5 text-sm font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-xl transition-all flex items-center gap-2"
@@ -124,9 +112,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="lg:col-span-6">
             <CurrencyConverter
               lang={lang}
-              onBookRate={(from, to, amount) => {
-                onOpenBooking();
-              }}
+              selectedCurrencyCode={selectedCurrencyCode}
             />
           </div>
 

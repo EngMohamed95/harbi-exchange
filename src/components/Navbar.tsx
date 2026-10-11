@@ -7,10 +7,9 @@ import { content } from '../translations';
 interface NavbarProps {
   lang: Language;
   onToggleLang: () => void;
-  onOpenBooking: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang, onOpenBooking }) => {
+export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = content[lang];
   const isArabic = lang === 'ar';
@@ -72,15 +71,14 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang, onOpenBookin
               <span>{isArabic ? 'EN' : 'عربي'}</span>
             </button>
 
-            {/* Direct Call / Booking CTA */}
-            <button
-              onClick={onOpenBooking}
-              type="button"
+            {/* Direct Call CTA */}
+            <a
+              href={`tel:${t.tollFree}`}
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-[#a6ce39] to-[#92ba2b] hover:brightness-105 active:scale-[0.98] rounded-lg transition-all shadow-sm whitespace-nowrap shrink-0"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>{t.tollFree}</span>
-            </button>
+            </a>
 
             {/* Mobile menu trigger */}
             <button
@@ -138,17 +136,13 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang, onOpenBookin
           </div>
 
           <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenBooking();
-              }}
-              type="button"
+            <a
+              href={`tel:${t.tollFree}`}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-950 bg-[#a6ce39] hover:bg-[#96be27] rounded-lg transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span>{isArabic ? 'حجز واستفسار سريع' : 'Quick Reservation'}</span>
-            </button>
+              <span>{isArabic ? 'اتصل بنا' : 'Call Us'}</span>
+            </a>
             <a
               href={`tel:${t.tollFree}`}
               className="text-center text-xs text-slate-400 py-1 hover:text-slate-200"

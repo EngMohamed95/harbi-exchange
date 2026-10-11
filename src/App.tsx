@@ -8,13 +8,11 @@ import { Services } from './components/Services';
 import { AirportLocation } from './components/AirportLocation';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
-import { BookingModal } from './components/BookingModal';
 import { Phone, Clock, MessageSquare, ChevronUp } from 'lucide-react';
 import { content } from './translations';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ar');
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedCurrencyCode, setSelectedCurrencyCode] = useState('USD');
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -50,7 +48,6 @@ export default function App() {
       <Navbar
         lang={lang}
         onToggleLang={toggleLanguage}
-        onOpenBooking={() => setIsBookingOpen(true)}
       />
 
       {/* 2. Real-time Market Ticker */}
@@ -62,8 +59,7 @@ export default function App() {
         {/* Hero Section with Live Converter */}
         <Hero
           lang={lang}
-          onOpenBooking={() => setIsBookingOpen(true)}
-          onSelectCurrency={(code) => setSelectedCurrencyCode(code)}
+          selectedCurrencyCode={selectedCurrencyCode}
         />
 
         {/* Foreign Currency Rates Table */}
@@ -73,10 +69,7 @@ export default function App() {
         />
 
         {/* Specialized Services Bento Grid */}
-        <Services
-          lang={lang}
-          onOpenBooking={() => setIsBookingOpen(true)}
-        />
+        <Services lang={lang} />
 
         {/* Airport Terminal Location & Working Hours */}
         <AirportLocation lang={lang} />
@@ -89,17 +82,7 @@ export default function App() {
       {/* 4. Official Regulatory Footer */}
       <Footer lang={lang} />
 
-      {/* 5. Interactive Booking Modal */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        lang={lang}
-        initialFromCurrency={selectedCurrencyCode}
-        initialToCurrency={selectedCurrencyCode === 'SAR' ? 'USD' : 'SAR'}
-        initialAmount={1000}
-      />
-
-      {/* 6. Floating Action Button for Quick Toll-Free Call (Mobile & Desktop) */}
+      {/* 5. Floating Action Button for Quick Toll-Free Call (Mobile & Desktop) */}
       <div className="fixed bottom-6 left-6 rtl:left-6 rtl:right-auto z-40 flex flex-col items-center gap-2.5">
         
         {showScrollTop && (

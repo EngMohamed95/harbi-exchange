@@ -13,10 +13,9 @@ import {
 
 interface ServicesProps {
   lang: Language;
-  onOpenBooking: () => void;
 }
 
-export const Services: React.FC<ServicesProps> = ({ lang, onOpenBooking }) => {
+export const Services: React.FC<ServicesProps> = ({ lang }) => {
   const t = content[lang];
   const isArabic = lang === 'ar';
 
@@ -160,13 +159,12 @@ export const Services: React.FC<ServicesProps> = ({ lang, onOpenBooking }) => {
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={onOpenBooking}
+          <a
+            href={`tel:${t.tollFree}`}
             className="px-6 py-3.5 text-xs sm:text-sm font-bold text-slate-950 bg-gradient-to-r from-[#a6ce39] to-[#00a3da] hover:brightness-105 active:scale-[0.98] rounded-xl transition-all shadow-lg whitespace-nowrap shrink-0 relative z-10"
           >
-            {isArabic ? 'طلب ترتيب سيولة للبعثات' : 'Delegation Cash Request'}
-          </button>
+            {isArabic ? `تواصل معنا: ${t.tollFree}` : `Contact Us: ${t.tollFree}`}
+          </a>
         </div>
 
       </div>
