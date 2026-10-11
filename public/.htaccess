@@ -1,0 +1,2 @@
+# Serve the site's index.html ahead of the host's placeholder index.php.
+DirectoryIndex index.html index.php
