@@ -1,0 +1,6 @@
+{
+  "name": "شركة مطير عواد الحربي وشركاؤه للصرافة - Harbi Exchange",
+  "description": "الموقع الرسمي لشركة مطير عواد الحربي وشركاؤه للصرافة (Harbi Exchange) - المركز الرئيسي بمطار الملك عبدالعزيز الدولي بجدة، صالات الحج والعمرة. خاضعة لرقابة وإشراف البنك المركزي السعودي (ساما).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
