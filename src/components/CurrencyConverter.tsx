@@ -164,7 +164,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
               min="1"
               value={amount || ''}
               onChange={(e) => setAmount(Math.max(0, parseFloat(e.target.value) || 0))}
-              className="w-full bg-transparent text-2xl sm:text-3xl font-bold font-mono text-white focus:outline-none tabular-nums"
+              className="min-w-0 flex-1 bg-transparent text-2xl sm:text-3xl font-bold font-mono text-white focus:outline-none tabular-nums"
               placeholder="1000"
             />
             {mode === 'sell' ? (
@@ -172,7 +172,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
                 aria-label={isArabic ? 'اختر العملة الأجنبية' : 'Select foreign currency'}
                 value={foreignCode}
                 onChange={(e) => setForeignCode(e.target.value)}
-                className="bg-slate-900 border border-slate-700 text-white font-semibold text-xs sm:text-sm rounded-lg px-2.5 py-2 focus:outline-none focus:border-[#a6ce39] cursor-pointer"
+                className="w-32 shrink-0 truncate bg-slate-900 border border-slate-700 text-white font-semibold text-xs sm:text-sm rounded-lg px-2.5 py-2 focus:outline-none focus:border-[#a6ce39] cursor-pointer"
               >
                 {currencies.map((c) => (
                   <option key={c.code} value={c.code}>
@@ -181,7 +181,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
                 ))}
               </select>
             ) : (
-              <div className="px-3 py-2 bg-slate-900 border border-slate-800 text-white rounded-lg text-xs font-bold whitespace-nowrap">
+              <div className="shrink-0 px-3 py-2 bg-slate-900 border border-slate-800 text-white rounded-lg text-xs font-bold whitespace-nowrap">
                 🇸🇦 SAR
               </div>
             )}
