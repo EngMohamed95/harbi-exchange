@@ -1,7 +1,7 @@
 name: Build & publish deploy branch
 
 # Builds the site and publishes dist/ to the `deploy` branch.
-# The host pulls that branch with scripts/deploy-from-github.sh (run from cron).
+# The host pulls that branch with scripts/deploy-from-github.php (run from cron).
 
 on:
   push:
